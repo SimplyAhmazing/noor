@@ -3,12 +3,14 @@
 html,
 body {
     height: 100%;
+    font-size: 20px;
 }
 
 .editor {
   padding: 2em 0;
   text-align: right;
-  font-family: 'Droid Arabic Kufi', serif;
+  /* font-family: 'Droid Arabic Kufi', serif; */
+  font-family: 'Arial', serif;
   direction: rtl;
 }
 
