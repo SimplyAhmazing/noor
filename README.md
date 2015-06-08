@@ -1,7 +1,14 @@
-# Electron Starter App
+# Noor-lang
 
-1. run `npm install .`
-2. Edit `index.html`, `main.js`, &/|| `lib/app.js` to make your app
-3. start app by running `electron main.js` in your terminal
 
-![Main Electron Window](http://imgur.com/SnBIyZN.png)
+Noor is a simple, yet aHmazing arabic programming language. It it is currently
+in development mode and is being further defined and refined. It is implemented
+in Javascript.
+
+Noor comes with an IDE built to make it easy to write code in an
+arabic environment.
+
+
+![Imgur](http://i.imgur.com/669IPVH.png)
+
+More to come soon...
