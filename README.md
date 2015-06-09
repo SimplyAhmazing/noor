@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/SimplyAhmazing/noor.svg)](https://travis-ci.org/SimplyAhmazing/noor)
+
 # Noor-lang
 
 

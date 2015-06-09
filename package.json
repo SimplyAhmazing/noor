@@ -1,5 +1,5 @@
 {
-  "name": "your-app-name",
+  "name": "noor",
   "version": "0.0.0",
   "description": "App description",
   "main": "index.js",
@@ -18,5 +18,8 @@
     "bootstrap": "^3.3.4",
     "domready": "^1.0.7",
     "jquery": "^2.1.4"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
   }
 }
