@@ -13,4 +13,15 @@ arabic environment.
 
 ![Imgur](http://i.imgur.com/669IPVH.png)
 
+
+TODO:
+- [x] variable bindings
+- [x] function invocation
+- [x] builtin print statement
+- [ ] conditionals
+- [ ] iteration
+- [ ] function declaration
+- [ ] std library with trigonemtric key words
+
+
 More to come soon...
