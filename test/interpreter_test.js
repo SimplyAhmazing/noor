@@ -4,6 +4,7 @@ var parse = require('../lib/parser').parse;
 var scope = require('../lib/scope');
 var tokenize = require('../lib/lexer').tokenize;
 var utils = require('../lib/utils');
+// var testUtils = require('../test/test_utils');
 
 
 describe('interpeter', function() {
@@ -15,7 +16,7 @@ describe('interpeter', function() {
       var expected = 50;
 
       var result = null;
-      // TODO: move this 
+      // TODO: move this to test util module
       function stdout(text) {
         result = text;
       }
