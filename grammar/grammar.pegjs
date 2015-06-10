@@ -64,7 +64,7 @@ Char "Char"
   = (Digits / Alphabet / Symbol / Whitespace / NewLine)
 
 String "String"
-  = "\"" string:Char* "\"" { return node("String", string) }
+  = "\"" chars:Char* "\"" { return node("String", chars.join("")) }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
