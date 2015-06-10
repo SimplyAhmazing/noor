@@ -4,7 +4,7 @@
   "description": "App description",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/mocha/bin/mocha"
   },
   "author": "your-name",
   "license": "MIT",
@@ -17,9 +17,7 @@
   "dependencies": {
     "bootstrap": "^3.3.4",
     "domready": "^1.0.7",
-    "jquery": "^2.1.4"
-  },
-  "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "jquery": "^2.1.4",
+    "pegjs": "^0.8.0"
   }
 }
