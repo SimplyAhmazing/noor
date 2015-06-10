@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.4",
+    "debug": "^2.2.0",
     "domready": "^1.0.7",
     "jquery": "^2.1.4",
     "pegjs": "^0.8.0"
