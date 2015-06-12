@@ -24,20 +24,21 @@ Atom "Atom"
 
 
 Alphabet
-  = [\u0600-\u06FF]
+  = [\u0600-\u065F\u066A-\u06FF]
 
 
 Argument "Argument"
-  = InvocationExpression
-  / Atom
+  //= InvocationExpression
+  = Atom
   / "(" Whitespace* !AssignmentExpression expr:Expression Whitespace* ")" { return expr }
 
 Arguments "Arguments"
-  = Whitespace+ atom:Atom { return atom }
+  = Whitespace+ invoExpr:InvocationExpression { return invoExpr }
+  / Whitespace+ atom:Atom { return atom }
 
 
 AssignmentExpression "AssignmentExpression"
-  = id:Identifier Whitespace* "=" Whitespace* rhs:RHS { console.log('got here', arguments); return node("AssignmentExpression", [id, rhs]) }
+  = id:Identifier Whitespace* "=" Whitespace* rhs:RHS { return node("AssignmentExpression", [id, rhs]) }
 
 
 ArithmeticOperator "ArithmeticOperator"
@@ -73,6 +74,7 @@ Digits "Digits"
 
 Expression "Expression"
   = AssignmentExpression
+  / opExpr:OperatorExpression { return opExpr }
   / InvocationExpression
   / "(" Whitespace* expr:Expression Whitespace* ")" { return expr }
   / Atom
@@ -126,19 +128,23 @@ InvocationExpression "InvocationExpression"
   = ftn:Identifier args:Arguments* { return node('InvocationExpression', [ftn].concat(args)) }
 
 
-/*OperatorExpression "OperatorExpression"*/
-/*  = arg1:Argument Whitespace* restOpExpr:RestOfBinaryOperatorExpression+ { return node("OperatorExpression", [arg1].concat(restOpExpr[0])) }*/
-/*    / unaryLogicalOp:UnaryLogicalOp expr:Argument Whitespace* rest:RestOfBinaryOperatorExpression* { return node("UnaryLogicalOperation", [unaryLogicalOp, expr].concat(rest)) }*/
-/**/
-/**/
-/*RestOfBinaryOperatorExpression "RestOfBinaryOperatorExpression"*/
-/*  = binaryOp:BinaryOperator Whitespace* arg2:Expression { return [arg2, binaryOp] }*/
+OperatorExpression "OperatorExpression"
+  = arg1:Argument Whitespace* restOpExpr:RestOfBinaryOperatorExpression+ {
+        return node("OperatorExpression", [arg1].concat(restOpExpr[0]))
+    }
+  / unaryLogicalOp:UnaryLogicalOp expr:Argument Whitespace* rest:RestOfBinaryOperatorExpression* {
+            return node("UnaryLogicalOperation", [unaryLogicalOp, expr].concat(rest))
+    }
+
+
+RestOfBinaryOperatorExpression "RestOfBinaryOperatorExpression"
+  = binaryOp:BinaryOperator Whitespace* arg2:Expression { return [binaryOp, arg2] }
 
 
 RHS "RHS"
   = block:Block { return block }
-  // assignmentExpression:AssignmentExpression { return Node("AssignmentExpression", assignmentExpression) }
-  // invExpr:InvocationExpression { return invExpr }
+  / opExpr:OperatorExpression { return opExpr }
+  / invExpr:InvocationExpression { return invExpr }
   / atom:Atom { return atom }
 
 
