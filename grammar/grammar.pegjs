@@ -42,8 +42,8 @@ AssignmentExpression "AssignmentExpression"
 
 
 ArithmeticOperator "ArithmeticOperator"
-  = "/"{ return node("DivisionOperator", "/") }
-  / "*" { return node("MultiplicationOperator", "*") }
+  = [\/÷] { return node("DivisionOperator", "/") }
+  / [*×] { return node("MultiplicationOperator", "*") }
   / "+" { return node("AdditionOperator", "+") }
   / "-" { return node("SubtractionOperator", "-") }
 
@@ -133,12 +133,17 @@ OperatorExpression "OperatorExpression"
         return node("OperatorExpression", [arg1].concat(restOpExpr[0]))
     }
   / unaryLogicalOp:UnaryLogicalOp expr:Argument Whitespace* rest:RestOfBinaryOperatorExpression* {
-            return node("UnaryLogicalOperation", [unaryLogicalOp, expr].concat(rest))
+        return node("UnaryLogicalOperation", [unaryLogicalOp, expr].concat(rest))
     }
 
 
 RestOfBinaryOperatorExpression "RestOfBinaryOperatorExpression"
-  = binaryOp:BinaryOperator Whitespace* arg2:Expression { return [binaryOp, arg2] }
+  = binaryOp:BinaryOperator Whitespace* arg2:Expression {
+  if (Array.isArray(arg2.val)) {
+    return [binaryOp].concat(arg2.val);
+   }
+  return [binaryOp, arg2];
+}
 
 
 RHS "RHS"

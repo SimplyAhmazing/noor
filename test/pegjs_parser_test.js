@@ -2,20 +2,6 @@ var parse = require('../lib/peg-parser');
 var expect = require('chai').expect;
 var d = require('../lib/utils').logger('parseTests');
 
-var inputs    = [
-  'ب = ٧+٩\n',
-  'ب = ١+٢+٣\n',
-  'ب + ي\n',
-  // '',
-];
-
-// inputs.map(function(input) {
-//   d(input);
-//   d(JSON.stringify(parse(input), null, 4));
-//   d('\n');
-// });
-
-
 
 describe('peg-parser', function() {
   describe('#parse()', function() {
@@ -145,7 +131,6 @@ describe('peg-parser', function() {
     });
 
     it('should parse an arithmetic operation between 2 integers', function() {
-
       var input = '٩+٧\n';
       var expected = {
         "type":"Program",
@@ -165,6 +150,72 @@ describe('peg-parser', function() {
       };
       expect(parse(input)).to.deep.equal(expected);
     });
-    // console.log(JSON.stringify(parse(input)));
+
+    it('should parse an arithmetic operation between variables (identifiers)', function() {
+      var input = 'ي+ن\n';
+      var expected = {
+        "type":"Program",
+        "val":[
+          {"type":"OperatorExpression",
+           "val":[
+            {"type":"Identifier",
+             "val":"ي"
+            },
+            {"type":"AdditionOperator",
+              "val":"+"
+            },
+            // The second identifier is a function because how can the parser know if this
+            // variable is a function or an instance variable?
+            {"type":"InvocationExpression",
+              "val":[
+                {"type":"Identifier","val":"ن"}
+              ]
+            }
+          ]
+        }]
+      };
+      expect(parse(input)).to.deep.equal(expected);
+    });
+
+    it('should parse a variable assigned to a simple arithmetic operation', function() {
+      var input = 'ب = ٩+٧\n';
+      var expected = {
+        "type":"Program",
+        "val":[
+          {"type":"AssignmentExpression",
+           "val":[
+            {"type":"Identifier",
+             "val":"ب"
+            },
+            {"type":"OperatorExpression",
+              "val":[
+                {
+                "type":"Integer",
+                "val":9
+              },
+              {
+                "type":"AdditionOperator",
+                "val":"+"
+              },
+              {
+                "type":"Integer",
+                "val":7
+              }]
+            }
+          ]
+        }]
+      };
+      expect(parse(input)).to.deep.equal(expected);
+    });
+
+    it('should parse a variable assigned to a simple complex arithmetic operation', function() {
+      var input = 'ب = ٩+٧×٧ - ٤÷٢\n';
+      var expected = {};
+      d(console.log(JSON.stringify(parse(input))), null, 4);
+      expect(parse(input)).to.deep.equal(expected);
+    });
   });
 });
+
+// 'ب = ٧+٩\n',
+// 'ب = ١+٢+٣\n',
