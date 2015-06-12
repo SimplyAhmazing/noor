@@ -209,8 +209,8 @@ describe('peg-parser', function() {
     });
 
     it('should parse a variable assigned to a simple complex arithmetic operation', function() {
-      var input = 'ب = ٩+٧×٧ - ٤÷٢\n';
-      var expected = {};
+      var input = 'ب = ٩+٧×٧ - ٤÷٢ + ن\n';
+      var expected = {"type":"Program","val":[{"type":"AssignmentExpression","val":[{"type":"Identifier","val":"ب"},{"type":"OperatorExpression","val":[{"type":"Integer","val":9},{"type":"AdditionOperator","val":"+"},{"type":"Integer","val":7},{"type":"MultiplicationOperator","val":"*"},{"type":"Integer","val":7},{"type":"SubtractionOperator","val":"-"},{"type":"Integer","val":4},{"type":"DivisionOperator","val":"/"},{"type":"Integer","val":2},{"type":"AdditionOperator","val":"+"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ن"}]}]}]}]};
       d(console.log(JSON.stringify(parse(input))), null, 4);
       expect(parse(input)).to.deep.equal(expected);
     });

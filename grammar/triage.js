@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var d = require('../lib/utils').logger('parseTests');
 
 var inputs    = [
-  'ب = ٩+٧×٧ - ٤÷٢\n'
+  'ب = ٩+٧×٧ - ٤÷٢ + ن\n'
   // '',
 ];
 

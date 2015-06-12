@@ -139,11 +139,11 @@ OperatorExpression "OperatorExpression"
 
 RestOfBinaryOperatorExpression "RestOfBinaryOperatorExpression"
   = binaryOp:BinaryOperator Whitespace* arg2:Expression {
-  if (Array.isArray(arg2.val)) {
-    return [binaryOp].concat(arg2.val);
-   }
-  return [binaryOp, arg2];
-}
+    if (Array.isArray(arg2.val) && (arg2.type !== "InvocationExpression")) {
+        return [binaryOp].concat(arg2.val);
+    }
+    return [binaryOp, arg2];
+  }
 
 
 RHS "RHS"
