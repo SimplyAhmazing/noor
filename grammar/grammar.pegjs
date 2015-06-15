@@ -74,7 +74,7 @@ Digits "Digits"
 
 Expression "Expression"
   = !Keyword
-  IfElseExpression
+  / IfElseExpression
   / AssignmentExpression
   / opExpr:OperatorExpression { return opExpr }
   / InvocationExpression
