@@ -50,11 +50,11 @@ ArithmeticOperator "ArithmeticOperator"
 
 BinaryOperator "BinaryOperator"
   = ArithmeticOperator
-  // LogicalOperator
+  / LogicalOperator
 
 
 Block "Block"
-  = "{" WhitespaceOrNewLine* exprs:Expressions* WhitespaceOrNewLine* "}" { return node("Block", exprs) }
+  = WhitespaceOrNewLine+ exprs:Expressions* WhitespaceOrNewLine+ { return node("Block", exprs) }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
@@ -73,7 +73,9 @@ Digits "Digits"
 
 
 Expression "Expression"
-  = AssignmentExpression
+  = !Keyword
+  IfElseExpression
+  / AssignmentExpression
   / opExpr:OperatorExpression { return opExpr }
   / InvocationExpression
   / "(" Whitespace* expr:Expression Whitespace* ")" { return expr }
@@ -85,11 +87,19 @@ ExpressionTerminator
 
 
 Expressions "Expressions"
-  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator Whitespace* { return expr }
+  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator Whitespace* { console.log('got into expressions'); return expr }
 
 
 Identifier "Identifier"
   = first:("_" / Alphabet) rest:("_" / Alphabet / Digit)* { return node("Identifier", first + rest.join("")) }
+
+
+IfElseExpression
+  = IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO
+       consequent:Block*
+       ELSE
+       alternate:Block*
+       END { return node("IfElseExpression", [predicate, consequent, alternate]); }
 
 
 Integer "Integer"
@@ -111,21 +121,31 @@ Number "Number"
 /*operatorAssignment "operatorAssignment"*/
 /*  = Whitespace* id:Identifier */
 
-
-Symbol "Symbol"
-  = [!@#$%\^&*()\-_=\+\[\]\{\}\|;:'.,<>/?\\`~]
-
-
-String "String"
-  = "\"" chars:Char* "\"" { return node("String", chars.join("")) }
-
-
 Identifiers "Identifiers"
-  = Whitespace+ id:Identifier { return id }
+  = !Keyword Whitespace+ id:Identifier { return id }
 
 
 InvocationExpression "InvocationExpression"
   = ftn:Identifier args:Arguments* { return node('InvocationExpression', [ftn].concat(args)) }
+
+
+Keyword "Keyword"
+  = IF
+  / DO
+  / ELSE
+  / END
+
+
+LogicalOperator "LogicalOperator"
+  = "&&" { return node("AndOperator", "&&") }
+  / "||" { return node("OrOperator", "||") }
+  / "==" { return node("EqualityOperator", "==") }
+  / "!=" { return node("InequalityOperator", "!=") }
+  / "<=" { return node("LTEOperator", "<=") }
+  / ">=" { return node("GTEOperator", ">=") }
+  / "<"  { return node("LTOperator", "<") }
+  / ">"  { return node("GTOperator", ">") }
+
 
 
 OperatorExpression "OperatorExpression"
@@ -153,6 +173,14 @@ RHS "RHS"
   / atom:Atom { return atom }
 
 
+Symbol "Symbol"
+  = [!@#$%\^&*()\-_=\+\[\]\{\}\|;:'.,<>/?\\`~]
+
+
+String "String"
+  = "\"" chars:Char* "\"" { return node("String", chars.join("")) }
+
+
 UnaryLogicalOp "UnaryLogicalOp"
   = "!"
 
@@ -165,3 +193,18 @@ WhitespaceOrNewLine "WhitespaceOrNewLine"
   = Whitespace
   / NewLine
 
+
+
+/* ----- KEYWORDS ----- */
+
+IF "IF"
+  = "لو"
+
+DO "DO"
+  = "سوي"
+
+ELSE  "ELSE"
+  = "والا"
+
+END  "END"
+  = "بس"

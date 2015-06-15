@@ -109,7 +109,6 @@ describe('peg-parser', function() {
       expect(parse(input)).to.deep.equal(expected);
     });
 
-
     it('should parse an arithmetic operation between 2 integers', function() {
       var input = '٩+٧\n';
       var expected = {
@@ -191,11 +190,16 @@ describe('peg-parser', function() {
     it('should parse a variable assigned to a simple complex arithmetic operation', function() {
       var input = 'ب = ٩+٧×٧ - ٤÷٢ + ن\n';
       var expected = {"type":"Program","val":[{"type":"AssignmentExpression","val":[{"type":"Identifier","val":"ب"},{"type":"OperatorExpression","val":[{"type":"Integer","val":9},{"type":"AdditionOperator","val":"+"},{"type":"Integer","val":7},{"type":"MultiplicationOperator","val":"*"},{"type":"Integer","val":7},{"type":"SubtractionOperator","val":"-"},{"type":"Integer","val":4},{"type":"DivisionOperator","val":"/"},{"type":"Integer","val":2},{"type":"AdditionOperator","val":"+"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ن"}]}]}]}]};
-      d(console.log(JSON.stringify(parse(input))), null, 4);
       expect(parse(input)).to.deep.equal(expected);
     });
+
+    it('should parse a logical operator expression', function() {
+      var input = 'ب > ن\n';
+      var expected ={"type":"Program","val":[{"type":"OperatorExpression","val":[{"type":"Identifier","val":"ب"},{"type":"GTOperator","val":">"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ن"}]}]}]};
+      expect(parse(input)).to.deep.equal(expected);
+    });
+
+    // d(console.log(JSON.stringify(parse(input))), null, 4);
   });
 });
 
-// 'ب = ٧+٩\n',
-// 'ب = ١+٢+٣\n',
