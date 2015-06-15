@@ -109,26 +109,6 @@ describe('peg-parser', function() {
       expect(parse(input)).to.deep.equal(expected);
     });
 
-    it('should parse calling a ftn with an identifier (variable or 0-arg ftn)', function() {
-      var input = 'اطبع سوال\n';
-      var expected ={
-        "type":"Program",
-        "val":[
-          {"type":"InvocationExpression",
-           "val":[
-            {"type":"Identifier",
-             "val":"اطبع"
-            },
-            {"type":"InvocationExpression",
-              "val":[
-                {"type":"Identifier",
-                "val":"سوال"
-              }]}
-          ]
-        }]
-      };
-      expect(parse(input)).to.deep.equal(expected);
-    });
 
     it('should parse an arithmetic operation between 2 integers', function() {
       var input = '٩+٧\n';
