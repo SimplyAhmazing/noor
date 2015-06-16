@@ -54,7 +54,7 @@ BinaryOperator "BinaryOperator"
 
 
 Block "Block"
-  = WhitespaceOrNewLine+ exprs:Expressions* WhitespaceOrNewLine+ { return node("Block", exprs) }
+  = WhitespaceOrNewLine* exprs:Expressions* WhitespaceOrNewLine+ { console.log('exprs are: ', JSON.stringify(exprs)); return node("Block", exprs) }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
@@ -73,9 +73,8 @@ Digits "Digits"
 
 
 Expression "Expression"
-  = !Keyword
-  / IfElseExpression
-  / AssignmentExpression
+ // = IfElseExpression
+  = AssignmentExpression
   / opExpr:OperatorExpression { return opExpr }
   / InvocationExpression
   / "(" Whitespace* expr:Expression Whitespace* ")" { return expr }
@@ -87,7 +86,7 @@ ExpressionTerminator
 
 
 Expressions "Expressions"
-  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator Whitespace* { console.log('got into expressions'); return expr }
+  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
 
 
 Identifier "Identifier"
@@ -95,11 +94,8 @@ Identifier "Identifier"
 
 
 IfElseExpression
-  = IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO
-       consequent:Block*
-       ELSE
-       alternate:Block*
-       END { return node("IfElseExpression", [predicate, consequent, alternate]); }
+  = IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO WhitespaceOrNewLine* consequent:Block ELSE WhitespaceOrNewLine* alternate:Block END { return node("IfElseExpression", [predicate]); }
+  // = WhitespaceOrNewLine+ exprs:Expressions* WhitespaceOrNewLine+
 
 
 Integer "Integer"
@@ -111,7 +107,7 @@ Float "Float"
 
 
 NewLine
-  = [\n]
+  = [\n\r]
 
 
 Number "Number"
@@ -126,7 +122,7 @@ Identifiers "Identifiers"
 
 
 InvocationExpression "InvocationExpression"
-  = ftn:Identifier args:Arguments* { return node('InvocationExpression', [ftn].concat(args)) }
+  = !Keyword ftn:Identifier args:Arguments* { return node('InvocationExpression', [ftn].concat(args)) }
 
 
 Keyword "Keyword"
