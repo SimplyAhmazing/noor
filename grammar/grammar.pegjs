@@ -86,7 +86,7 @@ ExpressionTerminator
 
 
 Expressions "Expressions"
-  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
+  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator Whitespace* { return expr }
 
 
 Identifier "Identifier"
