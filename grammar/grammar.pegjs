@@ -95,7 +95,6 @@ Identifier "Identifier"
 
 IfElseExpression
   = IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO WhitespaceOrNewLine* consequent:Block ELSE WhitespaceOrNewLine* alternate:Block END { return node("IfElseExpression", [predicate]); }
-  // = WhitespaceOrNewLine+ exprs:Expressions* WhitespaceOrNewLine+
 
 
 Integer "Integer"
