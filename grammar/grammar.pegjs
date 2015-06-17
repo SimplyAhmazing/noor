@@ -54,7 +54,12 @@ BinaryOperator "BinaryOperator"
 
 
 Block "Block"
-  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine+ { console.log('exprs are: ', JSON.stringify(exprs)); return node("Block", exprs) }
+  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine* {
+    if (Array.isArray(exprs)) {
+      return node("Block", exprs);
+     }
+   return node("Block", [exprs]);
+  }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
@@ -73,7 +78,6 @@ Digits "Digits"
 
 
 Expression "Expression"
-  //= IfElseExpression
   = AssignmentExpression
   / opExpr:OperatorExpression { return opExpr }
   / InvocationExpression
@@ -86,8 +90,8 @@ ExpressionTerminator
 
 
 Expressions "Expressions"
-  = expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
-  / IfElseExpression
+  = IfElseExpression
+  / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
 
 
 Identifier "Identifier"
@@ -166,7 +170,7 @@ RestOfBinaryOperatorExpression "RestOfBinaryOperatorExpression"
 
 
 RHS "RHS"
-  = block:Block { return block }
+  = block:Block WhitespaceOrNewLine+ { return block }
   / opExpr:OperatorExpression { return opExpr }
   / invExpr:InvocationExpression { return invExpr }
   / atom:Atom { return atom }
