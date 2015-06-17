@@ -54,7 +54,7 @@ BinaryOperator "BinaryOperator"
 
 
 Block "Block"
-  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine* { console.log('exprs are: ', JSON.stringify(exprs)); return node("Block", exprs) }
+  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine+ { console.log('exprs are: ', JSON.stringify(exprs)); return node("Block", exprs) }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
