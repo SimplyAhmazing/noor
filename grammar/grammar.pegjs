@@ -54,7 +54,7 @@ BinaryOperator "BinaryOperator"
 
 
 Block "Block"
-  = WhitespaceOrNewLine* exprs:Expressions* WhitespaceOrNewLine+ { console.log('exprs are: ', JSON.stringify(exprs)); return node("Block", exprs) }
+  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine* { console.log('exprs are: ', JSON.stringify(exprs)); return node("Block", exprs) }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
@@ -73,7 +73,7 @@ Digits "Digits"
 
 
 Expression "Expression"
- // = IfElseExpression
+  //= IfElseExpression
   = AssignmentExpression
   / opExpr:OperatorExpression { return opExpr }
   / InvocationExpression
@@ -86,15 +86,19 @@ ExpressionTerminator
 
 
 Expressions "Expressions"
-  = Whitespace* expr:Expression? Whitespace* ExpressionTerminator Whitespace* { return expr }
+  = expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
+  / IfElseExpression
 
 
 Identifier "Identifier"
-  = first:("_" / Alphabet) rest:("_" / Alphabet / Digit)* { return node("Identifier", first + rest.join("")) }
+  = !Keyword first:("_" / Alphabet) rest:("_" / Alphabet / Digit)* { return node("Identifier", first + rest.join("")) }
 
 
 IfElseExpression
-  = IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO WhitespaceOrNewLine* consequent:Block ELSE WhitespaceOrNewLine* alternate:Block END { return node("IfElseExpression", [predicate]); }
+  = IF Whitespace+ predicate:Atom Whitespace+ DO WhitespaceOrNewLine*
+    block:Block WhitespaceOrNewLine*
+    END
+    { return node("IfElseExpression", [predicate, block]); } //  ELSE WhitespaceOrNewLine* alternate:Block WhitespaceOrNewLine* END { return node("IfElseExpression", [predicate]); }
 
 
 Integer "Integer"
@@ -117,7 +121,7 @@ Number "Number"
 /*  = Whitespace* id:Identifier */
 
 Identifiers "Identifiers"
-  = !Keyword Whitespace+ id:Identifier { return id }
+  = Whitespace+ id:Identifier { return id }
 
 
 InvocationExpression "InvocationExpression"

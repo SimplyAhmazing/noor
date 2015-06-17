@@ -11,12 +11,8 @@ var d = require('../lib/utils').logger('parseTests');
 //
 //
 // var input = 'لو ٤ < ٥ سوي\n' +
-var input = 'لو ٥ سوي\n' +
-            'ك = ١٠٠\n' +
-            'والا\n' +
-            'م = ٠\n' +
-            'بس \n'
-// 
+var input = 'لو ٥ سوي \n١٠٠\nبس';
+
 // var input = '' +
 //             'ك = ١٠٠\n' +
 //             'م = ٠\n';
