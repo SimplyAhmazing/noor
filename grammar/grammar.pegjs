@@ -54,12 +54,7 @@ BinaryOperator "BinaryOperator"
 
 
 Block "Block"
-  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine* {
-    if (Array.isArray(exprs)) {
-      return node("Block", exprs);
-     }
-   return node("Block", [exprs]);
-  }
+  = WhitespaceOrNewLine* exprs:Expressions WhitespaceOrNewLine* { return exprs }
 
 Boolean "Boolean"
   = "true" { return node("Boolean", true) }
@@ -100,9 +95,16 @@ Identifier "Identifier"
 
 IfElseExpression
   = IF Whitespace+ predicate:Atom Whitespace+ DO WhitespaceOrNewLine*
-    block:Block WhitespaceOrNewLine*
+    trueBranch:Block* WhitespaceOrNewLine*
+    ELSE
+    falseBranch:Block* WhitespaceOrNewLine*
     END
-    { return node("IfElseExpression", [predicate, block]); } //  ELSE WhitespaceOrNewLine* alternate:Block WhitespaceOrNewLine* END { return node("IfElseExpression", [predicate]); }
+    { return node("IfElseExpression", [predicate, trueBranch, falseBranch]); }
+
+  / IF Whitespace+ predicate:Atom Whitespace+ DO WhitespaceOrNewLine*
+    trueBranch:Block* WhitespaceOrNewLine*
+    END
+    { return node("IfElseExpression", [predicate, trueBranch, null]); }
 
 
 Integer "Integer"
