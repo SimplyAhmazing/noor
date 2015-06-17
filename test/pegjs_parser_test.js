@@ -201,7 +201,15 @@ describe('peg-parser', function() {
       expect(parse(input)).to.deep.equal(expected);
     });
 
+    it('should parse a logical operator expression', function() {
+      var input = 'ب > ن\n';
+      var expected ={"type":"Program","val":[{"type":"OperatorExpression","val":[{"type":"Identifier","val":"ب"},{"type":"GTOperator","val":">"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ن"}]}]}]};
+      expect(parse(input)).to.deep.equal(expected);
+    });
     // d(console.log(JSON.stringify(parse(input))), null, 4);
+    //
+    //var input = 'لو ٥ سوي \nك = ١٠٠\nت=٥\nبس';
+    //var input = 'لو ٥ سوي \nك = ١٠٠\nت=٥\nوالا\n\nي=٧٧٧\n\nبس';
   });
 });
 
