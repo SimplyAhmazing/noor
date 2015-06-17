@@ -75,7 +75,7 @@ describe('peg-parser', function() {
       expect(parse(input)).to.deep.equal(expected);
     });
 
-    it('should parse calling a ftn with an string argument', function() {
+    it('should parse calling a ftn with a string argument', function() {
       var input = 'اطبع "كلم"\n';
       var expected = {
         "type":"Program",
@@ -85,14 +85,10 @@ describe('peg-parser', function() {
       expect(parse(input)).to.deep.equal(expected);
     });
 
-    it('should parse calling a ftn with an int arg', function() {
-      var input = 'اطبع "كلم"\n';
-      var expected = {
-        "type":"Program",
-        "val":[
-          {"type":"InvocationExpression",
-            "val":[{"type":"Identifier","val":"اطبع"},{"type":"String","val":"كلم"}]}]};
-      expect(parse(input)).to.deep.equal(expected);
+    it('should not parse an expression w/no trailing line and should throw an Exception', function() {
+      var input = 'اطبع "كلم"';
+      var expected = 'Expected Expressions or end of input but "\\u0627" found.';
+      expect(function (){parse(input)}).to.throw(expected);
     });
 
     it('should parse calling a ftn with an identifier (variable or 0-arg ftn)', function() {
