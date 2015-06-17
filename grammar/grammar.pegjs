@@ -94,14 +94,14 @@ Identifier "Identifier"
 
 
 IfElseExpression
-  = IF Whitespace+ predicate:Atom Whitespace+ DO WhitespaceOrNewLine*
+  = IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO WhitespaceOrNewLine*
     trueBranch:Block* WhitespaceOrNewLine*
     ELSE
     falseBranch:Block* WhitespaceOrNewLine*
     END
     { return node("IfElseExpression", [predicate, trueBranch, falseBranch]); }
 
-  / IF Whitespace+ predicate:Atom Whitespace+ DO WhitespaceOrNewLine*
+  / IF Whitespace+ predicate:(OperatorExpression / Atom) Whitespace+ DO WhitespaceOrNewLine*
     trueBranch:Block* WhitespaceOrNewLine*
     END
     { return node("IfElseExpression", [predicate, trueBranch, null]); }
