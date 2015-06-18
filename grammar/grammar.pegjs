@@ -148,7 +148,7 @@ Identifiers "Identifiers"
 InvocationExpression "InvocationExpression"
   = !Keyword ftn:Identifier args:Arguments*
     {
-        if (Array.isArray(args) && (args.lenght > 0)) {
+        if (Array.isArray(args) && (args.length > 0)) {
             return node('InvocationExpression', [ftn].concat(args[0]));
         }
         return node('InvocationExpression', [ftn].concat(args));

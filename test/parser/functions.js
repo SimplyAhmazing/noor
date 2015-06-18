@@ -55,10 +55,9 @@ describe('peg-parser-functions', function() {
           {"type":"InvocationExpression",
             "val":[
               {"type":"Identifier","val":"اطبع"},
-              [{"type":"InvocationExpression", "val":[{"type":"Identifier","val":"ب"}],},
+              {"type":"InvocationExpression", "val":[{"type":"Identifier","val":"ب"}],},
                {"type":"String","val":"هايي"},
                {"type":"InvocationExpression", "val":[{"type":"Identifier","val":"ياي"}],}
-              ]
             ]}]};
 
       // console.log(JSON.stringify(parse(input)));
@@ -66,7 +65,7 @@ describe('peg-parser-functions', function() {
     });
 
     it('should parse calling a ftn with 2 arguments', function() {
-      var input = 'اطبع ١٠ "كلم"\n';
+      var input = 'اطبع (١٠, "كلم")\n';
       var expected = {
         "type":"Program",
         "val":[
