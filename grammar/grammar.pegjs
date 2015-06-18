@@ -28,9 +28,9 @@ Alphabet
 
 
 Argument "Argument"
-  = InvocationExpression
-  / Atom
-  // "(" Whitespace* !AssignmentExpression expr:Expression Whitespace* ")" { return expr }
+  //= InvocationExpression
+  = Atom
+  / "(" Whitespace* !AssignmentExpression expr:Expression Whitespace* ")" { return expr }
 
 Arguments "Arguments"
   = Whitespace* "(" args:( Whitespace* (OperatorExpression / Atom) Whitespace* ","? Whitespace* )* ")" Whitespace*
@@ -147,7 +147,7 @@ Identifiers "Identifiers"
 
 
 InvocationExpression "InvocationExpression"
-  = !Keyword ftn:Identifier args:Arguments* 
+  = !Keyword ftn:Identifier args:Arguments*
     {
         if (Array.isArray(args)) {
             return node('InvocationExpression', [ftn].concat(args[0]));
