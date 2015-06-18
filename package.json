@@ -4,7 +4,7 @@
   "description": "App description",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/mocha/bin/mocha --recursive"
   },
   "author": "your-name",
   "license": "MIT",
