@@ -28,12 +28,28 @@ Alphabet
 
 
 Argument "Argument"
-  //= InvocationExpression
-  = Atom
-  / "(" Whitespace* !AssignmentExpression expr:Expression Whitespace* ")" { return expr }
+  = InvocationExpression
+  / Atom
+  // "(" Whitespace* !AssignmentExpression expr:Expression Whitespace* ")" { return expr }
 
 Arguments "Arguments"
-  = Whitespace+ invoExpr:InvocationExpression { return invoExpr }
+  = Whitespace* "(" args:( Whitespace* (OperatorExpression / Atom) Whitespace* ","? Whitespace* )* ")" Whitespace*
+    {
+        var myArguments = [];
+        args.forEach(function(elem){
+            console.log(elem);
+            try {
+              var potentialNode = elem[1];
+            } catch (e) {
+              return;
+            }
+            if (typeof potentialNode === "object" && potentialNode !== null && !(potentialNode instanceof Array)) {
+                myArguments.push(potentialNode);
+            }
+        });
+        return myArguments;
+    }
+  / Whitespace+ invoExpr:InvocationExpression { return invoExpr }
   / Whitespace+ atom:Atom { return atom }
 
 
@@ -131,7 +147,13 @@ Identifiers "Identifiers"
 
 
 InvocationExpression "InvocationExpression"
-  = !Keyword ftn:Identifier args:Arguments* { return node('InvocationExpression', [ftn].concat(args)) }
+  = !Keyword ftn:Identifier args:Arguments* 
+    {
+        if (Array.isArray(args)) {
+            return node('InvocationExpression', [ftn].concat(args[0]));
+        }
+        return node('InvocationExpression', [ftn].concat(args));
+    }
 
 
 Keyword "Keyword"
