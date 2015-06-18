@@ -33,11 +33,10 @@ Argument "Argument"
   / "(" Whitespace* !AssignmentExpression expr:Expression Whitespace* ")" { return expr }
 
 Arguments "Arguments"
-  = Whitespace* "(" args:( Whitespace* (OperatorExpression / Atom) Whitespace* ","? Whitespace* )* ")" Whitespace*
+  = Whitespace* "(" args:( Whitespace* (InvocationExpression / OperatorExpression / Atom) Whitespace* ","? Whitespace* )* ")" Whitespace*
     {
         var myArguments = [];
         args.forEach(function(elem){
-            console.log(elem);
             try {
               var potentialNode = elem[1];
             } catch (e) {
@@ -149,7 +148,7 @@ Identifiers "Identifiers"
 InvocationExpression "InvocationExpression"
   = !Keyword ftn:Identifier args:Arguments*
     {
-        if (Array.isArray(args)) {
+        if (Array.isArray(args) && (args.lenght > 0)) {
             return node('InvocationExpression', [ftn].concat(args[0]));
         }
         return node('InvocationExpression', [ftn].concat(args));

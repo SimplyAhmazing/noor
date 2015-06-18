@@ -55,15 +55,13 @@ describe('peg-parser-functions', function() {
           {"type":"InvocationExpression",
             "val":[
               {"type":"Identifier","val":"اطبع"},
-              {"type":"InvocationExpression",
-               "val":[{"type":"Identifier","val":"سوال"}],
-              },
-              {"type":"String","val":"هايي"},
-              {"type":"InvocationExpression",
-               "val":[{"type":"Identifier","val":"ياي"}],
-              }
+              [{"type":"InvocationExpression", "val":[{"type":"Identifier","val":"ب"}],},
+               {"type":"String","val":"هايي"},
+               {"type":"InvocationExpression", "val":[{"type":"Identifier","val":"ياي"}],}
+              ]
             ]}]};
 
+      // console.log(JSON.stringify(parse(input)));
       expect(parse(input)).to.deep.equal(expected);
     });
 
