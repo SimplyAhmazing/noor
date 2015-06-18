@@ -1,9 +1,9 @@
-var parse = require('../lib/peg-parser');
+var parse = require('../../lib/peg-parser');
 var expect = require('chai').expect;
-var d = require('../lib/utils').logger('parseTests');
+var d = require('../../lib/utils').logger('parseTests');
 
 
-describe('peg-parser', function() {
+describe('peg-parser-if-statements', function() {
   describe('#parse()', function() {
     it('should an if-statement w/o else clause (with an Atom as the predicate)', function() {
       var input = 'لو ٥ سوي \nك = ١٠٠\nت=٥\nبس';

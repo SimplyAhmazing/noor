@@ -1,9 +1,8 @@
 var expect = require('chai').expect;
-var interpreter = require('../lib/interpreter');
-var parse = require('../lib/parser').parse;
-var parse = require('../lib/peg-parser');
-var scope = require('../lib/scope');
-var utils = require('../lib/utils');
+var interpreter = require('../../lib/interpreter');
+var parse = require('../../lib/peg-parser');
+var scope = require('../../lib/scope');
+var utils = require('../../lib/utils');
 // var testUtils = require('../test/test_utils');
 
 

@@ -1,9 +1,9 @@
-var parse = require('../lib/peg-parser');
+var parse = require('../../lib/peg-parser');
 var expect = require('chai').expect;
-var d = require('../lib/utils').logger('parseTests');
+var d = require('../../lib/utils').logger('parseTests');
 
 
-describe('peg-parser', function() {
+describe('peg-parser-simple-expressions', function() {
   describe('#parse()', function() {
     it('should parse an operator expression like "a + b"', function() {
       // var input = 'ب = "مرحبا الي الريكرس سنتر"';
