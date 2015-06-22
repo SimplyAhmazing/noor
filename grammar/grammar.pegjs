@@ -101,8 +101,8 @@ ExpressionTerminator
 
 Expressions "Expressions"
   = IfElseExpression
-  / FunctionDeclaration
-  / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { console.log('The ARGS', JSON.stringify(arguments)); return expr }
+  / FunctionDefinition
+  / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
 
 
 Identifier "Identifier"
@@ -130,11 +130,28 @@ Integer "Integer"
 Float "Float"
   = float:(("+"/"-")?Digits "," Digits) { return parseFloat(float.join("")) }
 
-FunctionDeclaration "FunctionDeclaration"
-  = INSTRUCT Whitespace+ WORKER Whitespace+ fnName:Identifier Whitespace* "(" Whitespace* arg:Atom Whitespace* ")" Whitespace+ TODO WhitespaceOrNewLine*
+FunctionDefinitionArguments "FunctionDefinitionArguments"
+  = Whitespace* "(" args:( Whitespace* Atom Whitespace* ","? Whitespace* )* ")" Whitespace*
+    {
+        var myArguments = [];
+        args.forEach(function(elem){
+            try {
+              var potentialNode = elem[1];
+            } catch (e) {
+              return;
+            }
+            if (typeof potentialNode === "object" && potentialNode !== null && !(potentialNode instanceof Array)) {
+                myArguments.push(potentialNode);
+            }
+        });
+        return node("FunctionDefinitionArguments", myArguments);
+    }
+
+FunctionDefinition "FunctionDefinition"
+  = INSTRUCT Whitespace+ WORKER Whitespace+ fnName:Identifier args:FunctionDefinitionArguments TODO WhitespaceOrNewLine*
     body:Block* WhitespaceOrNewLine*
     END
-    { return node("FunctionDeclaration", [fnName, [arg], body]); }
+    { return node("FunctionDefinition", [fnName, args, body]); }
 
 
 NewLine

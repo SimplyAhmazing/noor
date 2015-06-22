@@ -19,6 +19,19 @@ var input = 'امر عامل فبنوتشي (ح) ليسوي\n' +
             'اطبع ب\n' +
             'بس\n';
 
+var input = 'امر عامل فبنوتشي (ح, ك) ليسوي\n' +
+            'ب = ١\n' +
+            'اطبع ب\n' +
+            'بس\n';
+
+var input = 'امر عامل فبنوتشي () ليسوي\n' +
+            'ب = ١\n' +
+            'اطبع ب\n' +
+            'بس\n';
+
+
+
+
 
 var inputs = [input];
 // var inputs = [fs.readFileSync(__dirname + '/../test/if-statement.txt', 'utf-8')];
