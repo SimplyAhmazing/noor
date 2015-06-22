@@ -76,11 +76,38 @@ describe('peg-parser-functions', function() {
               {"type": "String", "val": "كلم"}
             ]}]};
 
-      // console.log(JSON.stringify(parse(input)));
       expect(parse(input)).to.deep.equal(expected);
     });
     // d(console.log(JSON.stringify(parse(input))), null, 4);
-    //
+
+    it('should parse defining a function no arguments', function() {
+      var input = 'امر عامل فبنوتشي () ليسوي\n' +
+                  'ب = ١\n' +
+                  'اطبع ب\n' +
+                  'بس\n';
+      var expected = {"type":"Program","val":[{"type":"FunctionDefinition","val":[{"type":"Identifier","val":"فبنوتشي"},{"type":"FunctionDefinitionArguments","val":[]},[{"type":"AssignmentExpression","val":[{"type":"Identifier","val":"ب"},{"type":"Integer","val":1}]},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"اطبع"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ب"}]}]}]]},null]};
+      expect(parse(input)).to.deep.equal(expected);
+    });
+
+    it('should parse defining a function 1-arguments', function() {
+      var input = 'امر عامل فبنوتشي (ح) ليسوي\n' +
+                  'ب = ١\n' +
+                  'اطبع ب\n' +
+                  'بس\n';
+      var expected = {"type":"Program","val":[{"type":"FunctionDefinition","val":[{"type":"Identifier","val":"فبنوتشي"},{"type":"FunctionDefinitionArguments","val":[{"type":"Identifier","val":"ح"}]},[{"type":"AssignmentExpression","val":[{"type":"Identifier","val":"ب"},{"type":"Integer","val":1}]},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"اطبع"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ب"}]}]}]]},null]};
+      expect(parse(input)).to.deep.equal(expected);
+    });
+
+    it('should parse defining a function 2-arguments', function() {
+      var input = 'امر عامل فبنوتشي (ح, ك) ليسوي\n' +
+                  'ب = ١\n' +
+                  'اطبع ب\n' +
+                  'بس\n';
+      var expected = {"type":"Program","val":[{"type":"FunctionDefinition","val":[{"type":"Identifier","val":"فبنوتشي"},{"type":"FunctionDefinitionArguments","val":[{"type":"Identifier","val":"ح"},{"type":"Identifier","val":"ك"}]},[{"type":"AssignmentExpression","val":[{"type":"Identifier","val":"ب"},{"type":"Integer","val":1}]},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"اطبع"},{"type":"InvocationExpression","val":[{"type":"Identifier","val":"ب"}]}]}]]},null]};
+      expect(parse(input)).to.deep.equal(expected);
+    });
+
+
   });
 });
 
