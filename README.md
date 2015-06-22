@@ -11,17 +11,18 @@ Noor comes with an IDE built to make it easy to write code in an
 arabic environment.
 
 
-![Imgur](http://i.imgur.com/669IPVH.png)
+![Imgur](http://i.imgur.com/oWQw0Xu.png)
 
 
 TODO:
-- [x] variable bindings
-- [x] function invocation
-- [x] builtin print statement
-- [ ] conditionals
-- [ ] iteration
-- [ ] function declaration
-- [ ] std library with trigonemtric key words
+- [x] Variable bindings, strings and integers
+- [x] Function invocation
+- [x] Built in print statement
+- [x] Conditionals
+- [ ] Function declaration
+- [ ] Iteration
+- [ ] Standard library with trigonemtric key words
+  [ ] Arrays and Objects (dictionaries)
 
 
 More to come soon...
