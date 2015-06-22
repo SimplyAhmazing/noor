@@ -10,19 +10,19 @@ describe('interpeter', function() {
   var interpret = interpreter.interpret;
 
   describe('#interpret()', function() {
-    it('should evaluate a function declaration', function() {
-      var input = '';
-      var expected = 50;
+    // it('should evaluate a function declaration', function() {
+    //   var input = '';
+    //   var expected = 50;
 
-      var result = null;
-      // TODO: move this to test util module
-      function stdout(text) {
-        result = text;
-      }
-      var scopeObj = scope.createScope(null, stdout);
-      interpret(parse(input), scopeObj);
+    //   var result = null;
+    //   // TODO: move this to test util module
+    //   function stdout(text) {
+    //     result = text;
+    //   }
+    //   var scopeObj = scope.createScope(null, stdout);
+    //   interpret(parse(input), scopeObj);
 
-      expect(result).to.equal(expected);
-    });
+    //   expect(result).to.equal(expected);
+    // });
   });
 });
