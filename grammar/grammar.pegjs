@@ -101,7 +101,7 @@ ExpressionTerminator
 
 Expressions "Expressions"
   = IfElseExpression
-  / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
+  / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { console.log('The ARGS', JSON.stringify(arguments)); return expr }
 
 
 Identifier "Identifier"
