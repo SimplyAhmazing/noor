@@ -11,13 +11,13 @@ var d = require('../lib/utils').logger('parseTests');
 //
 //
 // var input = 'لو ٤ < ٥ سوي\n' +
-var input = 'اطبع (ب ,١+٢ , "هايي" )\n';
+// var input = 'اطبع (ب ,١+٢ , "هايي" )\n';
 
 
-// var input = '' +
-//             'ك = ١٠٠\n' +
-//             'م = ٠\n';
-
+var input = 'امر عامل فبنوتشي (ح) ليسوي\n' +
+            'ب = ١\n' +
+            'اطبع ب\n' +
+            'بس\n';
 
 
 var inputs = [input];

@@ -101,6 +101,7 @@ ExpressionTerminator
 
 Expressions "Expressions"
   = IfElseExpression
+  / FunctionDeclaration
   / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { console.log('The ARGS', JSON.stringify(arguments)); return expr }
 
 
@@ -128,6 +129,12 @@ Integer "Integer"
 
 Float "Float"
   = float:(("+"/"-")?Digits "," Digits) { return parseFloat(float.join("")) }
+
+FunctionDeclaration "FunctionDeclaration"
+  = INSTRUCT Whitespace+ WORKER Whitespace+ fnName:Identifier Whitespace* "(" Whitespace* arg:Atom Whitespace* ")" Whitespace+ TODO WhitespaceOrNewLine*
+    body:Block* WhitespaceOrNewLine*
+    END
+    { return node("FunctionDeclaration", [fnName, [arg], body]); }
 
 
 NewLine
@@ -226,6 +233,9 @@ WhitespaceOrNewLine "WhitespaceOrNewLine"
 IF "IF"
   = "لو"
 
+INSTRUCT "INSTRUCT"
+  = "امر"
+
 DO "DO"
   = "سوي"
 
@@ -234,3 +244,9 @@ ELSE  "ELSE"
 
 END  "END"
   = "بس"
+
+TODO "TODO"
+  = "ليسوي"
+
+WORKER "WORKER"
+  = "عامل"
