@@ -101,6 +101,7 @@ ExpressionTerminator
 
 Expressions "Expressions"
   = IfElseExpression
+  / FunctionDefinition
   / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
 
 
@@ -128,6 +129,29 @@ Integer "Integer"
 
 Float "Float"
   = float:(("+"/"-")?Digits "," Digits) { return parseFloat(float.join("")) }
+
+FunctionDefinitionArguments "FunctionDefinitionArguments"
+  = Whitespace* "(" args:( Whitespace* Atom Whitespace* ","? Whitespace* )* ")" Whitespace*
+    {
+        var myArguments = [];
+        args.forEach(function(elem){
+            try {
+              var potentialNode = elem[1];
+            } catch (e) {
+              return;
+            }
+            if (typeof potentialNode === "object" && potentialNode !== null && !(potentialNode instanceof Array)) {
+                myArguments.push(potentialNode);
+            }
+        });
+        return node("FunctionDefinitionArguments", myArguments);
+    }
+
+FunctionDefinition "FunctionDefinition"
+  = INSTRUCT Whitespace+ WORKER Whitespace+ fnName:Identifier args:FunctionDefinitionArguments TODO WhitespaceOrNewLine*
+    body:Block* WhitespaceOrNewLine*
+    END
+    { return node("FunctionDefinition", [fnName, args, body]); }
 
 
 NewLine
@@ -226,6 +250,9 @@ WhitespaceOrNewLine "WhitespaceOrNewLine"
 IF "IF"
   = "لو"
 
+INSTRUCT "INSTRUCT"
+  = "امر"
+
 DO "DO"
   = "سوي"
 
@@ -234,3 +261,9 @@ ELSE  "ELSE"
 
 END  "END"
   = "بس"
+
+TODO "TODO"
+  = "ليسوي"
+
+WORKER "WORKER"
+  = "عامل"
