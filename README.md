@@ -22,7 +22,7 @@ TODO:
 - [x] Function declaration
 - [ ] Iteration
 - [ ] Standard library with trigonemtric key words
-  [ ] Arrays and Objects (dictionaries)
+- [ ] Arrays and Objects (dictionaries)
 
 
 More to come soon...
