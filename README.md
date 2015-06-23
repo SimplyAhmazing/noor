@@ -19,7 +19,7 @@ TODO:
 - [x] Function invocation
 - [x] Built in print statement
 - [x] Conditionals
-- [ ] Function declaration
+- [x] Function declaration
 - [ ] Iteration
 - [ ] Standard library with trigonemtric key words
   [ ] Arrays and Objects (dictionaries)
