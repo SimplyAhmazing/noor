@@ -101,8 +101,23 @@ ExpressionTerminator
 
 Expressions "Expressions"
   = IfElseExpression
+  / ForloopStatement
   / FunctionDefinition
   / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
+
+
+ForloopStatement "ForloopStatement"
+  = FOREACH Whitespace+ loopVar:Identifier Whitespace+ IN Whitespace+ "[" range:ForloopStatementRange "]" Whitespace+ DO WhitespaceOrNewLine+
+    body:Block* WhitespaceOrNewLine*
+    END
+    { return node("ForloopStatement", [loopVar, range, body]) }
+
+
+ForloopStatementRange "ForloopStatementRange"
+  = Whitespace* start:(Integer / Identifier) Whitespace* ".." Whitespace* end:(Integer / Identifier) Whitespace*
+    { return node("ForloopStatementRange", [start, end]); }
+  / Whitespace* end:(Integer / Identifier) Whitespace*
+    { return node("ForloopStatementRange", [1, end]); }
 
 
 Identifier "Identifier"
@@ -250,6 +265,9 @@ WhitespaceOrNewLine "WhitespaceOrNewLine"
 IF "IF"
   = "لو"
 
+IN "IN"
+  = "في"
+
 INSTRUCT "INSTRUCT"
   = "امر"
 
@@ -261,6 +279,9 @@ ELSE  "ELSE"
 
 END  "END"
   = "بس"
+
+FOREACH "FOREACH"
+  = "لكل"
 
 TODO "TODO"
   = "ليسوي"

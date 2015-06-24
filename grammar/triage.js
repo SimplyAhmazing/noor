@@ -14,14 +14,13 @@ var d = require('../lib/utils').logger('parseTests');
 // var input = 'اطبع (ب ,١+٢ , "هايي" )\n';
 
 
-var input = 'لكل شي في [١..٩] سوي' +
+var input = 'لكل شي في [١٠٠] سوي\n' +
             'اطبع شي\n' +
-            'بس\n';
+            'بس';
 
-// var input = 'لكل شي في [١٠٠] سوي\n' +
-//             'اطبع شي\n' +
-//             'بس\n';
-
+var input = 'لكل شي في [١..٩] سوي\n' +
+            'اطبع شي\n' +
+            'بس';
 
 
 var inputs = [input];
