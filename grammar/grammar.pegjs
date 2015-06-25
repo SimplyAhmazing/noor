@@ -23,9 +23,11 @@ Atom "Atom"
   / Identifier
 
 
-Alphabet
+AlphabetArabic "AlphabetArabic"
   = [\u0600-\u065F\u066A-\u06FF]
 
+AlphabetEnglish "AlphabetEnglish"
+  = [a-zA-Z]
 
 Argument "Argument"
   //= InvocationExpression
@@ -61,6 +63,7 @@ ArithmeticOperator "ArithmeticOperator"
   / [*×] { return node("MultiplicationOperator", "*") }
   / "+" { return node("AdditionOperator", "+") }
   / "-" { return node("SubtractionOperator", "-") }
+  / [%٪] { return node("%Operator", "%") }
 
 
 BinaryOperator "BinaryOperator"
@@ -77,7 +80,7 @@ Boolean "Boolean"
 
 
 Char "Char"
-  = (Digits / Alphabet / Symbol / Whitespace / NewLine)
+  = (Digits / AlphabetArabic / AlphabetEnglish / Symbol / Whitespace / NewLine)
 
 
 Digit "Digit"
@@ -121,7 +124,7 @@ ForloopStatementRange "ForloopStatementRange"
 
 
 Identifier "Identifier"
-  = !Keyword first:("_" / Alphabet) rest:("_" / Alphabet / Digit)* { return node("Identifier", first + rest.join("")) }
+  = !Keyword first:("_" / AlphabetArabic) rest:("_" / AlphabetArabic / Digit)* { return node("Identifier", first + rest.join("")) }
 
 
 IfElseExpression
