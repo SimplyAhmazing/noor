@@ -20,9 +20,72 @@ TODO:
 - [x] Built in print statement
 - [x] Conditionals
 - [x] Function declaration
-- [ ] Iteration
+- [x] Iteration
 - [ ] Standard library with trigonemtric key words
 - [ ] Arrays and Objects (dictionaries)
 
 
 More to come soon...
+
+
+FizzBuzz in Noor:
+
+![Imgur](http://i.imgur.com/v1z1guF.png)
+
+
+Fibonacci:
+![Imgur](http://i.imgur.com/62TyjeP.png)
+
+
+FizzBuzz source:
+```
+امر عامل قاسمــمع٣ (ن) ليسوي
+   د = ن ٪ ٣
+   د
+بس
+
+امر عامل قاسمــمع٥ (ن) ليسوي
+   د = ن ٪ ٥
+   د
+بس
+
+لكل شي في [١..١٠٠] سوي
+  د = قاسمــمع٣ (شي)
+  ن = قاسمــمع٥(شي)
+
+  اطبع شي
+
+  لو  د == ٠ سوي
+     اطبع "Fizz"
+  بس
+
+  لو ن == ٠ سوي
+     اطبع "Buzz"
+  بس
+
+بس
+```
+
+
+Fibonacci source:
+```
+امر عامل فب (ن) ليسوي
+    د = ٠
+    لو ن < ٢ سوي
+      د = ن
+    والا
+      ش = ن - ١
+      س = ن - ٢
+      م = فب(ش)
+      ك = فب(س)
+      د = م + ك
+    بس
+    د
+بس
+
+اطبع (فب(٥))
+
+اطبع (فب(١٠))
+
+اطبع (فب(١٥))
+```
