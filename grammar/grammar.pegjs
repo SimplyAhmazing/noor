@@ -23,9 +23,11 @@ Atom "Atom"
   / Identifier
 
 
-Alphabet
+AlphabetArabic "AlphabetArabic"
   = [\u0600-\u065F\u066A-\u06FF]
 
+AlphabetEnglish "AlphabetEnglish"
+  = [a-zA-Z]
 
 Argument "Argument"
   //= InvocationExpression
@@ -61,6 +63,7 @@ ArithmeticOperator "ArithmeticOperator"
   / [*×] { return node("MultiplicationOperator", "*") }
   / "+" { return node("AdditionOperator", "+") }
   / "-" { return node("SubtractionOperator", "-") }
+  / [%٪] { return node("%Operator", "%") }
 
 
 BinaryOperator "BinaryOperator"
@@ -77,7 +80,7 @@ Boolean "Boolean"
 
 
 Char "Char"
-  = (Digits / Alphabet / Symbol / Whitespace / NewLine)
+  = (Digits / AlphabetArabic / AlphabetEnglish / Symbol / Whitespace / NewLine)
 
 
 Digit "Digit"
@@ -101,12 +104,27 @@ ExpressionTerminator
 
 Expressions "Expressions"
   = IfElseExpression
+  / ForloopStatement
   / FunctionDefinition
   / expr:Expression? Whitespace* ExpressionTerminator+ Whitespace* { return expr }
 
 
+ForloopStatement "ForloopStatement"
+  = FOREACH Whitespace+ loopVar:Identifier Whitespace+ IN Whitespace+ "[" range:ForloopStatementRange "]" Whitespace+ DO WhitespaceOrNewLine+
+    body:Block* WhitespaceOrNewLine*
+    END
+    { return node("ForloopStatement", [loopVar, range, body]) }
+
+
+ForloopStatementRange "ForloopStatementRange"
+  = Whitespace* start:(Integer / Identifier) Whitespace* ".." Whitespace* end:(Integer / Identifier) Whitespace*
+    { return node("ForloopStatementRange", [start, end]); }
+  / Whitespace* end:(Integer / Identifier) Whitespace*
+    { return node("ForloopStatementRange", [1, end]); }
+
+
 Identifier "Identifier"
-  = !Keyword first:("_" / Alphabet) rest:("_" / Alphabet / Digit)* { return node("Identifier", first + rest.join("")) }
+  = !Keyword first:("_" / AlphabetArabic) rest:("_" / AlphabetArabic / Digit)* { return node("Identifier", first + rest.join("")) }
 
 
 IfElseExpression
@@ -250,6 +268,9 @@ WhitespaceOrNewLine "WhitespaceOrNewLine"
 IF "IF"
   = "لو"
 
+IN "IN"
+  = "في"
+
 INSTRUCT "INSTRUCT"
   = "امر"
 
@@ -261,6 +282,9 @@ ELSE  "ELSE"
 
 END  "END"
   = "بس"
+
+FOREACH "FOREACH"
+  = "لكل"
 
 TODO "TODO"
   = "ليسوي"
