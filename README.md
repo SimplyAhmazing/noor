@@ -14,18 +14,41 @@ arabic environment.
 ![Imgur](http://i.imgur.com/oWQw0Xu.png)
 
 
-TODO:
+## TODO
 - [x] Variable bindings, strings and integers
 - [x] Function invocation
 - [x] Built in print statement
 - [x] Conditionals
 - [x] Function declaration
 - [x] Iteration
-- [ ] Standard library with trigonemtric key words
+- [ ] Booleans
 - [ ] Arrays and hashmaps
+- [ ] Standard library with trigonemtric key words
 
 
-More to come soon...
+## Status
+
+Noor is still in development. The purpose of this project is to demonstrate
+a beginner friendly programming language that uses a non-latin alphabet based
+language, hence Arabic. Noor is implemented in JS so that it can natively in
+the browser.
+
+In prior commits, Noor used a hand written lexer and parser but now uses PEGJS,
+a [Parser Expression Grammar][peg-paper] that combiles the lexing and parsing phases
+into one step. There are some grievances I have with PEGJS, one is you cannot
+get the line number or information which caused a syntax error when building the
+abstract syntax tree for a program. Returning to a hand-written lexer and parser
+is still a possibility in my mind.
+
+## Goals
+
+- Complete test coverage
+- Enough language features and concepts to solve basic programming exercies
+- More to come soon...
+
+
+[peg-paper]: http://pdos.csail.mit.edu/~baford/packrat/popl04/peg-popl04.pdf
+
 
 
 FizzBuzz in Noor:
