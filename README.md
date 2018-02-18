@@ -61,6 +61,9 @@ Fibonacci:
 
 
 FizzBuzz source:
+
+<div dir="rtl">
+
 ```
 امر عامل قاسمــمع٣ (ن) ليسوي
    د = ن ٪ ٣
@@ -89,8 +92,11 @@ FizzBuzz source:
 بس
 ```
 
+</div>
 
 Fibonacci source:
+
+<div dir="rtl">
 ```
 امر عامل فب (ن) ليسوي
     د = ٠
@@ -112,3 +118,4 @@ Fibonacci source:
 
 اطبع (فب(١٥))
 ```
+</div>
