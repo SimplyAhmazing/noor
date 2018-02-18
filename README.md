@@ -97,6 +97,7 @@ FizzBuzz source:
 Fibonacci source:
 
 <div dir="rtl">
+   
 ```
 امر عامل فب (ن) ليسوي
     د = ٠
@@ -118,4 +119,5 @@ Fibonacci source:
 
 اطبع (فب(١٥))
 ```
+
 </div>
