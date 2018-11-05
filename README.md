@@ -30,7 +30,7 @@ arabic environment.
 
 Noor is still in development. The purpose of this project is to demonstrate
 a beginner friendly programming language that uses a non-latin alphabet based
-language, hence Arabic. Noor is implemented in JS so that it can natively in
+language, hence Arabic. Noor is implemented in JS so that it can run natively in
 the browser.
 
 In prior commits, Noor used a hand written lexer and parser but now uses PEGJS,
